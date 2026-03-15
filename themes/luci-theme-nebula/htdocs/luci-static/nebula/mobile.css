@@ -1,0 +1,30 @@
+@import url('/luci-static/bootstrap/mobile.css');
+
+body.nebula-theme header,
+body.nebula-theme footer {
+	max-width: calc(100% - 16px);
+	margin: 8px auto;
+	padding-left: 12px;
+	padding-right: 12px;
+}
+
+body.nebula-theme #maincontent {
+	padding: 12px;
+}
+
+body.nebula-theme.nebula-login-page #maincontent {
+	padding: 12px 10px 24px;
+}
+
+.nebula-login-shell {
+	min-height: auto;
+}
+
+.nebula-login-card {
+	padding: 22px 16px 18px;
+}
+
+.nebula-login-avatar {
+	width: 132px;
+	height: 132px;
+}

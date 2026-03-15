@@ -1,0 +1,15 @@
+{
+  "luci-app-nebula-config": {
+    "description": "Grant UCI access to Nebula theme configuration",
+    "read": {
+      "uci": [
+        "nebula_theme"
+      ]
+    },
+    "write": {
+      "uci": [
+        "nebula_theme"
+      ]
+    }
+  }
+}

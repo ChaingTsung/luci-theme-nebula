@@ -1,0 +1,114 @@
+{#
+ Copyright 2026
+ Licensed to the public under the Apache License 2.0.
+-#}
+{%
+ import { getuid, getspnam } from 'luci.core';
+ const boardinfo = ubus.call('system', 'board');
+ const cfg = {
+  panel_opacity: uci.get('nebula_theme', 'main', 'panel_opacity') ?? '0.75',
+  blur_px: uci.get('nebula_theme', 'main', 'blur_px') ?? '14',
+  avatar_url: uci.get('nebula_theme', 'main', 'avatar_url') ?? '/luci-static/nebula/avatar-default.svg',
+  login_bg_provider: uci.get('nebula_theme', 'main', 'login_bg_provider') ?? 'url',
+  login_bg_type: uci.get('nebula_theme', 'main', 'login_bg_type') ?? 'image',
+  login_bg_url: uci.get('nebula_theme', 'main', 'login_bg_url') ?? '/luci-static/nebula/background-default.svg',
+  login_bg_api_url: uci.get('nebula_theme', 'main', 'login_bg_api_url') ?? '',
+  login_bg_api_path: uci.get('nebula_theme', 'main', 'login_bg_api_path') ?? 'url',
+  login_bg_youtube: uci.get('nebula_theme', 'main', 'login_bg_youtube') ?? '',
+  main_bg_provider: uci.get('nebula_theme', 'main', 'main_bg_provider') ?? 'inherit',
+  main_bg_type: uci.get('nebula_theme', 'main', 'main_bg_type') ?? 'image',
+  main_bg_url: uci.get('nebula_theme', 'main', 'main_bg_url') ?? '/luci-static/nebula/background-default.svg',
+  main_bg_api_url: uci.get('nebula_theme', 'main', 'main_bg_api_url') ?? '',
+  main_bg_api_path: uci.get('nebula_theme', 'main', 'main_bg_api_path') ?? 'url',
+  main_bg_youtube: uci.get('nebula_theme', 'main', 'main_bg_youtube') ?? '',
+  signature_text: uci.get('nebula_theme', 'main', 'signature_text') ?? '',
+  signature_api_url: uci.get('nebula_theme', 'main', 'signature_api_url') ?? '',
+  signature_api_path: uci.get('nebula_theme', 'main', 'signature_api_path') ?? 'hitokoto',
+  custom_css: uci.get('nebula_theme', 'main', 'custom_css') ?? ''
+ };
+ http.prepare_content('text/html; charset=UTF-8');
+-%}
+<!DOCTYPE html>
+<html lang="{{ dispatcher.lang }}">
+ <head>
+  <meta charset="utf-8">
+  <title>{{ striptags(`${boardinfo.hostname ?? '?'}${dispatched?.title ? ` | ${_(dispatched.title)}` : ''}`) }}</title>
+  <script>
+  var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)'),
+      rootElement = document.querySelector(':root'),
+      setDarkMode = function(match) { rootElement.setAttribute('data-darkmode', match.matches) };
+  mediaQuery.addEventListener('change', setDarkMode);
+  setDarkMode(mediaQuery);
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="darkreader-lock">
+  <link rel="stylesheet" href="{{ media }}/cascade.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 854px)" href="{{ media }}/mobile.css" />
+  <link rel="icon" href="{{ media }}/logo.svg" sizes="any">
+  {% if (node?.css): %}
+  <link rel="stylesheet" href="{{ resource }}/{{ node.css }}">
+  {% endif %}
+  {% if (css): %}
+  <style title="text/css">{{ css }}</style>
+  {% endif %}
+  <style id="nebula-inline-vars">:root{--nebula-panel-opacity:{{ cfg.panel_opacity }};--nebula-blur:{{ cfg.blur_px }}px;}</style>
+  {% if (cfg.custom_css): %}
+  <style id="nebula-user-css">{{ cfg.custom_css }}</style>
+  {% endif %}
+  <script src="{{ dispatcher.build_url('admin/translations', dispatcher.lang) }}"></script>
+  <script src="{{ resource }}/cbi.js"></script>
+  <script src="{{ media }}/theme-nebula.js" defer></script>
+ </head>
+ <body class="lang_{{ dispatcher.lang }} nebula-theme {{ entityencode(striptags(node?.title ?? ''), true) }}"
+  data-page="{{ entityencode(join('-', ctx.request_path), true) }}"
+  data-nebula-panel-opacity="{{ entityencode(cfg.panel_opacity, true) }}"
+  data-nebula-blur-px="{{ entityencode(cfg.blur_px, true) }}"
+  data-nebula-avatar-url="{{ entityencode(cfg.avatar_url, true) }}"
+  data-nebula-login-bg-provider="{{ entityencode(cfg.login_bg_provider, true) }}"
+  data-nebula-login-bg-type="{{ entityencode(cfg.login_bg_type, true) }}"
+  data-nebula-login-bg-url="{{ entityencode(cfg.login_bg_url, true) }}"
+  data-nebula-login-bg-api-url="{{ entityencode(cfg.login_bg_api_url, true) }}"
+  data-nebula-login-bg-api-path="{{ entityencode(cfg.login_bg_api_path, true) }}"
+  data-nebula-login-bg-youtube="{{ entityencode(cfg.login_bg_youtube, true) }}"
+  data-nebula-main-bg-provider="{{ entityencode(cfg.main_bg_provider, true) }}"
+  data-nebula-main-bg-type="{{ entityencode(cfg.main_bg_type, true) }}"
+  data-nebula-main-bg-url="{{ entityencode(cfg.main_bg_url, true) }}"
+  data-nebula-main-bg-api-url="{{ entityencode(cfg.main_bg_api_url, true) }}"
+  data-nebula-main-bg-api-path="{{ entityencode(cfg.main_bg_api_path, true) }}"
+  data-nebula-main-bg-youtube="{{ entityencode(cfg.main_bg_youtube, true) }}"
+  data-nebula-signature-text="{{ entityencode(cfg.signature_text, true) }}"
+  data-nebula-signature-api-url="{{ entityencode(cfg.signature_api_url, true) }}"
+  data-nebula-signature-api-path="{{ entityencode(cfg.signature_api_path, true) }}">
+ {% if (!blank_page): %}
+  <header>
+  <a class="brand" href="/">{{ striptags(boardinfo.hostname ?? '?') }}</a>
+  <ul class="nav" id="topmenu" style="display:none"></ul>
+  <div id="indicators" class="pull-right"></div>
+  </header>
+  <div id="maincontent" class="container">
+  {% if (getuid() == 0 && getspnam('root')?.pwdp === ''): %}
+  <div class="alert-message warning">
+  <h4>{{ _('No password set!') }}</h4>
+  <p>{{ _('There is no password set on this router. Please configure a root password to protect the web interface.') }}</p>
+  {% if (dispatcher.lookup("admin/system/admin")): %}
+  <div class="right"><a class="btn" href="{{ dispatcher.build_url("admin/system/admin") }}">{{ _('Go to password configuration...') }}</a></div>
+  {% endif %}
+  </div>
+  {% endif %}
+  {% if (boardinfo.rootfs_type == "initramfs"): %}
+  <div class="alert-message warning">
+  <h4>{{ _('System running in recovery (initramfs) mode.') }}</h4>
+  <p>{{ _('No changes to settings will be stored and are lost after rebooting. This mode should only be used to install a firmware upgrade') }}</p>
+  {% if (dispatcher.lookup("admin/system/flash")): %}
+  <div class="right"><a class="btn" href="{{ dispatcher.build_url("admin/system/flash") }}">{{ _('Go to firmware upgrade...') }}</a></div>
+  {% endif %}
+  </div>
+  {% endif %}
+  <noscript>
+  <div class="alert-message warning">
+  <h4>{{ _('JavaScript required!') }}</h4>
+  <p>{{ _('You must enable JavaScript in your browser or LuCI will not work properly.') }}</p>
+  </div>
+  </noscript>
+  <div id="tabmenu" style="display:none"></div>
+ {% endif %}

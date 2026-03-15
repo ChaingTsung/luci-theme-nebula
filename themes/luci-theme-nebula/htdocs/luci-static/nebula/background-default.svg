@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="120" y1="80" x2="1680" y2="980" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#08101B"/>
+      <stop offset="0.45" stop-color="#10233B"/>
+      <stop offset="1" stop-color="#1F2D52"/>
+    </linearGradient>
+    <radialGradient id="halo1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(370 240) rotate(90) scale(420 600)">
+      <stop stop-color="#38BDF8" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1450 320) rotate(90) scale(360 520)">
+      <stop stop-color="#A78BFA" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#A78BFA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <rect width="1920" height="1080" fill="url(#halo1)"/>
+  <rect width="1920" height="1080" fill="url(#halo2)"/>
+  <g fill="white" fill-opacity="0.86">
+    <circle cx="176" cy="112" r="2.4"/>
+    <circle cx="418" cy="206" r="1.8"/>
+    <circle cx="812" cy="174" r="2.2"/>
+    <circle cx="1038" cy="262" r="1.6"/>
+    <circle cx="1458" cy="126" r="2.4"/>
+    <circle cx="1704" cy="226" r="1.7"/>
+    <circle cx="1562" cy="478" r="2.3"/>
+    <circle cx="1288" cy="392" r="1.5"/>
+    <circle cx="970" cy="540" r="2.1"/>
+    <circle cx="624" cy="432" r="1.7"/>
+    <circle cx="308" cy="536" r="2.4"/>
+    <circle cx="144" cy="742" r="1.8"/>
+    <circle cx="520" cy="804" r="2.4"/>
+    <circle cx="924" cy="868" r="1.9"/>
+    <circle cx="1348" cy="804" r="2.3"/>
+    <circle cx="1682" cy="742" r="1.7"/>
+  </g>
+  <path d="M0 920C246 780 444 714 674 724C930 736 1030 864 1266 870C1468 876 1654 812 1920 664V1080H0V920Z" fill="rgba(255,255,255,0.08)"/>
+</svg>

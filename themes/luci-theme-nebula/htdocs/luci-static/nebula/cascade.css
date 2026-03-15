@@ -1,0 +1,276 @@
+@import url('/luci-static/bootstrap/cascade.css');
+
+:root {
+	--nebula-panel-opacity: 0.75;
+	--nebula-blur: 14px;
+	--nebula-radius: 22px;
+	--nebula-shadow: 0 24px 64px rgba(0, 0, 0, 0.26);
+	--nebula-border-light: rgba(255, 255, 255, 0.28);
+	--nebula-border-dark: rgba(255, 255, 255, 0.12);
+	--nebula-light-panel: rgba(255, 255, 255, var(--nebula-panel-opacity));
+	--nebula-dark-panel: rgba(17, 24, 39, calc(var(--nebula-panel-opacity) * 0.88));
+	--nebula-light-text: #122033;
+	--nebula-dark-text: #e5eefb;
+}
+
+html,
+body {
+	min-height: 100%;
+	background: transparent !important;
+}
+
+body.nebula-theme {
+	position: relative;
+	background: transparent !important;
+	color: var(--nebula-light-text);
+}
+
+html[data-darkmode="true"] body.nebula-theme {
+	color: var(--nebula-dark-text);
+}
+
+#nebula-background-root {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	overflow: hidden;
+	background: linear-gradient(135deg, #08101b 0%, #0f2036 45%, #14263e 100%);
+}
+
+#nebula-background-root > * {
+	position: absolute;
+	inset: 0;
+}
+
+#nebula-background-root img,
+#nebula-background-root video,
+#nebula-background-root iframe {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border: 0;
+}
+
+#nebula-background-root iframe {
+	pointer-events: none;
+	transform: scale(1.28);
+}
+
+#nebula-background-root .nebula-bg-overlay {
+	background: linear-gradient(180deg, rgba(6, 12, 19, 0.18), rgba(6, 12, 19, 0.34));
+}
+
+body.nebula-theme > *:not(#nebula-background-root) {
+	position: relative;
+	z-index: 1;
+}
+
+body.nebula-theme header,
+body.nebula-theme #maincontent,
+body.nebula-theme #tabmenu,
+body.nebula-theme footer,
+body.nebula-theme .cbi-map,
+body.nebula-theme .cbi-section,
+body.nebula-theme .table,
+body.nebula-theme .tr,
+body.nebula-theme .td,
+body.nebula-theme .th,
+body.nebula-theme .alert-message,
+body.nebula-theme .modal,
+body.nebula-theme .dropdown-menu,
+body.nebula-theme .cbi-tabmenu,
+body.nebula-theme .cbi-page-actions,
+body.nebula-theme .panel,
+body.nebula-theme .main-left,
+body.nebula-theme .main-right,
+body.nebula-theme .ifacebox,
+body.nebula-theme .network-status-table {
+	background: var(--nebula-light-panel);
+	border: 1px solid var(--nebula-border-light);
+	backdrop-filter: blur(var(--nebula-blur)) saturate(1.18);
+	-webkit-backdrop-filter: blur(var(--nebula-blur)) saturate(1.18);
+	box-shadow: var(--nebula-shadow);
+	border-radius: var(--nebula-radius);
+}
+
+html[data-darkmode="true"] body.nebula-theme header,
+html[data-darkmode="true"] body.nebula-theme #maincontent,
+html[data-darkmode="true"] body.nebula-theme #tabmenu,
+html[data-darkmode="true"] body.nebula-theme footer,
+html[data-darkmode="true"] body.nebula-theme .cbi-map,
+html[data-darkmode="true"] body.nebula-theme .cbi-section,
+html[data-darkmode="true"] body.nebula-theme .table,
+html[data-darkmode="true"] body.nebula-theme .tr,
+html[data-darkmode="true"] body.nebula-theme .td,
+html[data-darkmode="true"] body.nebula-theme .th,
+html[data-darkmode="true"] body.nebula-theme .alert-message,
+html[data-darkmode="true"] body.nebula-theme .modal,
+html[data-darkmode="true"] body.nebula-theme .dropdown-menu,
+html[data-darkmode="true"] body.nebula-theme .cbi-tabmenu,
+html[data-darkmode="true"] body.nebula-theme .cbi-page-actions,
+html[data-darkmode="true"] body.nebula-theme .panel,
+html[data-darkmode="true"] body.nebula-theme .main-left,
+html[data-darkmode="true"] body.nebula-theme .main-right,
+html[data-darkmode="true"] body.nebula-theme .ifacebox,
+html[data-darkmode="true"] body.nebula-theme .network-status-table {
+	background: var(--nebula-dark-panel);
+	border-color: var(--nebula-border-dark);
+}
+
+body.nebula-theme header,
+body.nebula-theme footer {
+	margin: 16px auto;
+	max-width: calc(100% - 32px);
+	padding-left: 18px;
+	padding-right: 18px;
+}
+
+body.nebula-theme #maincontent {
+	padding: 18px;
+	margin-top: 0;
+}
+
+body.nebula-theme .brand {
+	font-weight: 700;
+	letter-spacing: 0.02em;
+}
+
+body.nebula-theme input[type="text"],
+body.nebula-theme input[type="password"],
+body.nebula-theme select,
+body.nebula-theme textarea {
+	background: rgba(255, 255, 255, 0.62);
+	border-radius: 12px;
+}
+
+html[data-darkmode="true"] body.nebula-theme input[type="text"],
+html[data-darkmode="true"] body.nebula-theme input[type="password"],
+html[data-darkmode="true"] body.nebula-theme select,
+html[data-darkmode="true"] body.nebula-theme textarea {
+	background: rgba(15, 23, 42, 0.7);
+	color: var(--nebula-dark-text);
+}
+
+body.nebula-theme .btn,
+body.nebula-theme .cbi-button {
+	border-radius: 12px;
+}
+
+body.nebula-theme.nebula-login-page header,
+body.nebula-theme.nebula-login-page footer,
+body.nebula-theme.nebula-login-page #maincontent {
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+}
+
+body.nebula-theme.nebula-login-page header {
+	max-width: 1080px;
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+
+body.nebula-theme.nebula-login-page #maincontent {
+	padding: 24px 16px 48px;
+}
+
+.nebula-login-shell {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: calc(100vh - 170px);
+}
+
+.nebula-login-form {
+	width: min(100%, 560px);
+	margin: 0;
+}
+
+.nebula-login-error {
+	margin-bottom: 16px;
+}
+
+.nebula-login-card {
+	padding: 30px 32px 28px;
+	background: var(--nebula-light-panel) !important;
+	border: 1px solid var(--nebula-border-light) !important;
+	box-shadow: var(--nebula-shadow) !important;
+}
+
+html[data-darkmode="true"] .nebula-login-card {
+	background: var(--nebula-dark-panel) !important;
+	border-color: var(--nebula-border-dark) !important;
+}
+
+.nebula-login-avatar-wrap {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 18px;
+}
+
+.nebula-login-avatar {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	object-fit: cover;
+	box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
+	border: 4px solid rgba(255, 255, 255, 0.28);
+	background: rgba(255, 255, 255, 0.12);
+}
+
+.nebula-login-card h2 {
+	text-align: center;
+	margin-bottom: 6px;
+}
+
+.nebula-login-card .cbi-map-descr,
+.nebula-login-signature {
+	text-align: center;
+}
+
+.nebula-login-signature {
+	margin: 10px 0 22px;
+	font-size: 14px;
+	opacity: 0.92;
+}
+
+.nebula-login-signature[hidden] {
+	display: none !important;
+}
+
+.nebula-login-card .cbi-section,
+.nebula-login-card .cbi-page-actions {
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	padding: 0;
+	margin: 0;
+}
+
+.nebula-login-card .cbi-value-title {
+	font-weight: 600;
+}
+
+.nebula-login-card .cbi-value-field input {
+	height: 42px;
+}
+
+.nebula-login-actions {
+	margin-top: 18px !important;
+	text-align: center;
+}
+
+.nebula-login-actions .btn,
+.nebula-login-actions .cbi-button {
+	min-width: 160px;
+}
+
+body.nebula-theme #tabmenu,
+body.nebula-theme #topmenu,
+body.nebula-theme #modemenu {
+	border-radius: 16px;
+}

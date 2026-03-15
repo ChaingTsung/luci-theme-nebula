@@ -13,4 +13,4 @@ define Package/luci-theme-nebula/postrm
 }
 endef
 
-include ../../luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
